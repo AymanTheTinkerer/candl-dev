@@ -1,0 +1,33 @@
+@import "./tokens.css";
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--c-bg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--c-accent-soft);
+  color: var(--c-accent);
+}
+
+input::placeholder {
+  color: var(--c-hint);
+}
+
+button:active {
+  transform: scale(0.98) !important;
+}

@@ -1,0 +1,148 @@
+.page {
+  min-height: 100vh;
+  background: var(--c-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px 90px;
+}
+
+.inner {
+  width: 100%;
+  max-width: 420px;
+}
+
+.spacer40 {
+  height: 40px;
+}
+
+.h2 {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+
+.lead {
+  color: var(--c-muted);
+  margin-bottom: 28px;
+  line-height: 1.6;
+  font-family: var(--font-sans);
+  font-size: 15px;
+}
+
+.leadTight {
+  margin-bottom: 24px;
+}
+
+.btnContinue {
+  margin-top: 8px;
+}
+
+.footerNote {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 13px;
+  color: var(--c-hint);
+  font-family: var(--font-sans);
+}
+
+.link {
+  color: var(--c-accent);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.channelList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.channelCard {
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border: 1.5px solid var(--c-border);
+  background: var(--c-card);
+  cursor: pointer;
+}
+
+.channelCardSelected {
+  border: 2px solid var(--c-accent);
+  background: var(--c-accent-soft);
+}
+
+.channelEmoji {
+  font-size: 26px;
+}
+
+.channelBody {
+  flex: 1;
+}
+
+.channelName {
+  font-weight: 600;
+  font-size: 15px;
+  font-family: var(--font-sans);
+}
+
+.channelDesc {
+  font-size: 13px;
+  color: var(--c-muted);
+  font-family: var(--font-sans);
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.rowTight {
+  margin-top: 0;
+}
+
+.flex1 {
+  flex: 1;
+}
+
+.flex2 {
+  flex: 2;
+}
+
+.otpRow {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+.otpCell {
+  width: 52px;
+  height: 58px;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 700;
+  font-family: var(--font-sans);
+  border: 2px solid var(--c-border);
+  border-radius: 12px;
+  outline: none;
+  background: #fff;
+  transition: all 0.2s;
+  color: var(--c-text);
+}
+
+.otpCellFilled {
+  border-color: var(--c-accent);
+  background: var(--c-accent-soft);
+}
+
+.footerResend {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--c-hint);
+  font-family: var(--font-sans);
+}

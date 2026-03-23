@@ -1,0 +1,357 @@
+.page {
+  min-height: 100vh;
+  background: var(--c-bg);
+  padding-bottom: 90px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 32px;
+  max-width: 900px;
+  margin: 0 auto;
+  border-bottom: 1px solid var(--c-border-light);
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btnCompact {
+  padding: 8px 16px;
+  font-size: 13px;
+}
+
+.settingsBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  background: var(--c-accent-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px;
+}
+
+.inpFlush {
+  margin-bottom: 0;
+}
+
+.titleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 28px;
+}
+
+.h1 {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  letter-spacing: -0.02em;
+}
+
+.sub {
+  font-size: 14px;
+  color: var(--c-muted);
+  font-family: var(--font-sans);
+}
+
+.subStrong {
+  color: var(--c-text);
+}
+
+.addPanel {
+  margin-bottom: 20px;
+  padding: 20px;
+  border: 2px solid var(--c-accent);
+}
+
+.addRow {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+.addCol {
+  flex: 2;
+}
+
+.addBtn {
+  height: 46px;
+}
+
+.iconBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.iconBtnSm {
+  padding: 6px;
+  border-radius: 8px;
+}
+
+.tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 20px;
+  background: var(--c-bg-deep);
+  border-radius: 10px;
+  padding: 3px;
+  width: fit-content;
+}
+
+.tab {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: transparent;
+  color: var(--c-muted);
+  font-weight: 500;
+}
+
+.tabActive {
+  background: var(--c-card);
+  color: var(--c-text);
+  font-weight: 600;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.tabBadge {
+  margin-left: 5px;
+  font-size: 11px;
+  color: var(--c-warn);
+  font-weight: 700;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.eventCard {
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.eventIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.eventIconSoon {
+  background: var(--c-accent-soft);
+}
+
+.eventIconCalm {
+  background: var(--c-bg-deep);
+}
+
+.eventMain {
+  flex: 1;
+  min-width: 0;
+}
+
+.eventTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.eventName {
+  font-size: 15px;
+  font-weight: 600;
+  font-family: var(--font-sans);
+}
+
+.eventMeta {
+  font-size: 13px;
+  color: var(--c-muted);
+  font-family: var(--font-sans);
+  margin-top: 2px;
+}
+
+.daysSoon {
+  color: var(--c-accent);
+  font-weight: 600;
+}
+
+.daysCalm {
+  color: var(--c-muted);
+  font-weight: 400;
+}
+
+.eventActions {
+  display: flex;
+  gap: 6px;
+}
+
+.warnCard {
+  padding: 20px;
+  margin-bottom: 12px;
+  background: var(--c-warn-soft);
+  border: 1px solid var(--c-warn-border);
+}
+
+.warnRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.warnTitle {
+  font-size: 14px;
+  font-weight: 600;
+  font-family: var(--font-sans);
+  color: var(--c-warn);
+}
+
+.warnText {
+  font-size: 13px;
+  color: var(--c-muted);
+  font-family: var(--font-sans);
+  margin-bottom: 12px;
+}
+
+.pausedCard {
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  opacity: 0.6;
+  margin-bottom: 8px;
+}
+
+.pausedIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--c-bg-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.pausedMain {
+  flex: 1;
+}
+
+.pausedName {
+  font-size: 14px;
+  font-weight: 600;
+  font-family: var(--font-sans);
+}
+
+.pausedDate {
+  font-size: 12px;
+  color: var(--c-hint);
+  font-family: var(--font-sans);
+}
+
+.settingsBlock {
+  margin-top: 32px;
+  padding: 24px;
+  background: var(--c-bg-deep);
+  border-radius: 16px;
+  border: 1px solid var(--c-border-light);
+}
+
+.settingsTitle {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  font-family: var(--font-sans);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.settingsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.settingRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background: var(--c-card);
+  border-radius: 10px;
+  border: 1px solid var(--c-border-light);
+}
+
+.settingLabel {
+  font-size: 13px;
+  font-weight: 600;
+  font-family: var(--font-sans);
+}
+
+.settingValue {
+  font-size: 12px;
+  color: var(--c-muted);
+  font-family: var(--font-sans);
+}
+
+.toggle {
+  width: 36px;
+  height: 20px;
+  border-radius: 10px;
+  position: relative;
+  cursor: pointer;
+}
+
+.toggleOn {
+  background: var(--c-success);
+}
+
+.toggleOff {
+  background: var(--c-border);
+}
+
+.toggleKnob {
+  width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  background: #fff;
+  position: absolute;
+  top: 2px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  transition: left 0.2s;
+}
+
+.toggleKnobOn {
+  left: 18px;
+}
+
+.toggleKnobOff {
+  left: 2px;
+}

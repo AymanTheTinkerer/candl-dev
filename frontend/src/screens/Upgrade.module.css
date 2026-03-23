@@ -1,0 +1,179 @@
+.page {
+  min-height: 100vh;
+  background: var(--c-bg);
+  padding-bottom: 90px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 32px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.main {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 40px 32px;
+  text-align: center;
+}
+
+.emoji {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.h1 {
+  font-family: var(--font-serif);
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  letter-spacing: -0.025em;
+}
+
+.h1Accent {
+  color: var(--c-gold);
+  font-style: italic;
+}
+
+.lead {
+  font-size: 16px;
+  color: var(--c-muted);
+  margin-bottom: 40px;
+  font-family: var(--font-sans);
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.plan {
+  padding: 28px;
+  text-align: left;
+}
+
+.planMuted {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--c-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 12px;
+  font-family: var(--font-sans);
+}
+
+.planGold {
+  color: var(--c-gold);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.price {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.priceUnit {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--c-muted);
+}
+
+.hint {
+  font-size: 13px;
+  color: var(--c-hint);
+  margin-bottom: 20px;
+  font-family: var(--font-sans);
+}
+
+.featureRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-family: var(--font-sans);
+}
+
+.featureList {
+  margin-top: 16px;
+}
+
+.proCard {
+  border: 2px solid var(--c-gold);
+  position: relative;
+  overflow: hidden;
+}
+
+.ribbon {
+  position: absolute;
+  top: 14px;
+  right: -28px;
+  background: var(--c-gold);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 32px;
+  transform: rotate(45deg);
+  font-family: var(--font-sans);
+  letter-spacing: 0.04em;
+}
+
+.trustRow {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+
+.trustItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--c-muted);
+  font-family: var(--font-sans);
+}
+
+.faq {
+  text-align: left;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.faqTitle {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  font-family: var(--font-sans);
+}
+
+.faqCard {
+  padding: 16px;
+  margin-bottom: 8px;
+}
+
+.faqQ {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  font-family: var(--font-sans);
+}
+
+.faqA {
+  font-size: 13px;
+  color: var(--c-muted);
+  line-height: 1.6;
+  font-family: var(--font-sans);
+}
