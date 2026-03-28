@@ -1,12 +1,31 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { B } from "../theme.js";
 import { I } from "../icons.jsx";
 import { Btn, Badge, Card, Logo, Anim, countries } from "../components/ui.jsx";
 import styles from "../styles/Landing.module.css";
+import { getToken, clearToken } from "../utils/reminderDates.js";
 
 export function Landing({ go }) {
   const [ph, setPh] = useState("");
   const [cc, setCc] = useState("+1");
+  const [userPhone, setUserPhone] = useState(null);
+
+  useEffect(() => {
+    const token = getToken();
+    if (token) {
+      try {
+        const payload = JSON.parse(atob(token.split(".")[1]));
+        setUserPhone(payload.phone);
+      } catch {}
+    }
+  }, []);
+
+  const handleLogout = () => {
+    clearToken();
+    setUserPhone(null);
+    window.location.reload();
+  };
+
   return (
     <div className={styles.page}>
       <div className={styles.glowTop} />
@@ -15,7 +34,14 @@ export function Landing({ go }) {
       <Anim delay={0} type="fadeIn">
         <header className={styles.header}>
           <Logo />
-          <div className={styles.headerActions}><Btn v="ghost" onClick={() => go("verify")}>Log in</Btn><Btn onClick={() => go("verify")}>Get started free</Btn></div>
+          <div className={styles.headerActions}>
+            {userPhone ? (
+              <Btn v="ghost" onClick={handleLogout}>Log out</Btn>
+            ) : (
+              <Btn v="ghost" onClick={() => go("verify")}>Log in</Btn>
+            )}
+            <Btn onClick={() => go("verify")}>{userPhone ? "Add events" : "Get started free"}</Btn>
+          </div>
         </header>
       </Anim>
 
@@ -25,15 +51,21 @@ export function Landing({ go }) {
           <Anim delay={200}><h1 className={styles.heroTitle}>Never forget<br />an important date<br /><span className={styles.heroAccent}>ever again.</span></h1></Anim>
           <Anim delay={300}><p className={styles.lead}>Candl sends you reminders via SMS, WhatsApp, or Telegram — you pick one — for birthdays, anniversaries, and any date that matters. No app to download.</p></Anim>
           <Anim delay={400}>
-            <div className={styles.ctaRow}>
-              <select className={styles.selectCountry} value={cc} onChange={e => setCc(e.target.value)}>
-                {countries.map((c, i) => <option key={i} value={c.code}>{c.flag} {c.code}</option>)}
-              </select>
-              <div className={styles.telWrap}>
-                <input className={styles.telInput} type="tel" placeholder="Phone number" value={ph} onChange={e => setPh(e.target.value)} />
+            {userPhone ? (
+              <div className={styles.ctaRow}>
+                <div className={styles.welcomeMsg}>Welcome {userPhone.slice(-4)}</div>
               </div>
-              <Btn sz="lg" onClick={() => go("verify")} className={styles.btnStart}>Start free →</Btn>
-            </div>
+            ) : (
+              <div className={styles.ctaRow}>
+                <select className={styles.selectCountry} value={cc} onChange={e => setCc(e.target.value)}>
+                  {countries.map((c, i) => <option key={i} value={c.code}>{c.flag} {c.code}</option>)}
+                </select>
+                <div className={styles.telWrap}>
+                  <input className={styles.telInput} type="tel" placeholder="Phone number" value={ph} onChange={e => setPh(e.target.value)} />
+                </div>
+                <Btn sz="lg" onClick={() => go("verify")} className={styles.btnStart}>Start free →</Btn>
+              </div>
+            )}
             <p className={styles.ctaHint}>No credit card · Works worldwide · 30-second setup</p>
           </Anim>
         </div>
