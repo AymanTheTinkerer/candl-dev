@@ -2,7 +2,7 @@ import { useState } from "react";
 import { B } from "../theme.js";
 import { I } from "../icons.jsx";
 import { Btn, Badge, Card, Logo, Anim, countries } from "../components/ui.jsx";
-import styles from "./Landing.module.css";
+import styles from "../styles/Landing.module.css";
 
 export function Landing({ go }) {
   const [ph, setPh] = useState("");

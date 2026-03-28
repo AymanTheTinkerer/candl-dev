@@ -1,4 +1,4 @@
-import styles from "./NavBar.module.css";
+import styles from "../styles/NavBar.module.css";
 
 export function NavBar({ screen, go }) {
   const tabs = [{ id: "landing", l: "Landing", e: "🏠" }, { id: "verify", l: "Verify", e: "📱" }, { id: "onboard", l: "Onboard", e: "🎂" }, { id: "dashboard", l: "Dashboard", e: "📋" }, { id: "upgrade", l: "Upgrade", e: "⭐" }];

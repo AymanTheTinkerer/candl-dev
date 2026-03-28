@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { I } from "../icons.jsx";
-import styles from "./ui.module.css";
+import styles from "../styles/ui.module.css";
 
 const animHidden = {
   fadeUp: styles.animHiddenFadeUp,

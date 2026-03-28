@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { I } from "../icons.jsx";
 import { Btn, Card, Logo, PhoneInput, Anim, StepProgress } from "../components/ui.jsx";
-import styles from "./Verify.module.css";
+import styles from "../styles/Verify.module.css";
 
 export function Verify({ go }) {
   const [step, setStep] = useState(1);

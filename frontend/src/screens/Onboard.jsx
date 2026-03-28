@@ -2,7 +2,7 @@ import { useState } from "react";
 import { B } from "../theme.js";
 import { I } from "../icons.jsx";
 import { Btn, Inp, Badge, Card, Logo, Anim, StepProgress } from "../components/ui.jsx";
-import styles from "./Onboard.module.css";
+import styles from "../styles/Onboard.module.css";
 
 export function Onboard({ go }) {
   const [step, setStep] = useState(1);

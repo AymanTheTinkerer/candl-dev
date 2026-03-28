@@ -1,7 +1,7 @@
 import { B } from "../theme.js";
 import { I } from "../icons.jsx";
 import { Btn, Card, Logo, Anim } from "../components/ui.jsx";
-import styles from "./Upgrade.module.css";
+import styles from "../styles/Upgrade.module.css";
 
 export function Upgrade({ go }) {
   return (
