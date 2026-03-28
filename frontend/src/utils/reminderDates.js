@@ -31,3 +31,14 @@ export function turningAge(isoDate) {
   if (next < today) next = new Date(today.getFullYear() + 1, m - 1, d);
   return next.getFullYear() - birth.getFullYear();
 }
+
+// Token storage helpers
+export function saveToken(token) {
+  localStorage.setItem("candl_token", token);
+}
+export function getToken() {
+  return localStorage.getItem("candl_token");
+}
+export function clearToken() {
+  localStorage.removeItem("candl_token");
+}

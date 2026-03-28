@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { getToken } from "../utils/reminderDates.js";
 import { B } from "../theme.js";
 import { I } from "../icons.jsx";
 import { Btn, Inp, Badge, Card, Logo, Anim, StepProgress } from "../components/ui.jsx";
@@ -11,7 +12,26 @@ export function Onboard({ go }) {
   const [etype, setEtype] = useState("birthday");
   const [events, setEvents] = useState([]);
   const [showFb, setShowFb] = useState(false);
-  const addEvent = () => { if (name && date) { setEvents([...events, { name, date, type: etype }]); setName(""); setDate(""); } };
+  const addEvent = async () => {
+    if (name && date) {
+      // Save to backend
+      try {
+        await fetch("/api/addreminder", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${getToken()}`
+          },
+          body: JSON.stringify({ name, birthday: date })
+        });
+      } catch (e) {
+        // Optionally handle error
+      }
+      setEvents([...events, { name, date, type: etype }]);
+      setName("");
+      setDate("");
+    }
+  };
 
   return (
     <div className={styles.page}>

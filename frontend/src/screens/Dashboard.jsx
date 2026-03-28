@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from "react";
 import { I } from "../icons.jsx";
 import { Btn, Inp, Badge, Card, Logo, Anim } from "../components/ui.jsx";
 import styles from "../styles/Dashboard.module.css";
-import { daysUntilNextBirthday, formatBirthdayShort, turningAge } from "../utils/reminderDates.js";
+import { daysUntilNextBirthday, formatBirthdayShort, turningAge, getToken } from "../utils/reminderDates.js";
 
 function mapReminder(row) {
   const birthday = row.birthday;
@@ -31,7 +31,11 @@ export function Dashboard({ go }) {
     let cancelled = false;
     (async () => {
       try {
-        const res = await fetch("/api/reminders");
+        const res = await fetch("/api/reminders", {
+          headers: {
+            "Authorization": `Bearer ${getToken()}`
+          }
+        });
         const data = await res.json().catch(() => null);
         if (!res.ok) throw new Error(data?.error || res.statusText || "Failed to load reminders");
         if (cancelled) return;

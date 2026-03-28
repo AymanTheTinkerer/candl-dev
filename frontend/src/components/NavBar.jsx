@@ -1,4 +1,5 @@
 import styles from "../styles/NavBar.module.css";
+import { getToken } from "../utils/reminderDates.js";
 
 export function NavBar({ screen, go }) {
   const tabs = [{ id: "landing", l: "Landing", e: "🏠" }, { id: "verify", l: "Verify", e: "📱" }, { id: "onboard", l: "Onboard", e: "🎂" }, { id: "dashboard", l: "Dashboard", e: "📋" }, { id: "upgrade", l: "Upgrade", e: "⭐" }];
@@ -11,6 +12,9 @@ export function NavBar({ screen, go }) {
           {t.l}
         </button>
       ))}
+      <button type="button" onClick={() => console.log(getToken())} className={styles.tab} style={{ marginLeft: 8 }}>
+        🧪 Test
+      </button>
     </div>
   );
 }

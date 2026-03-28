@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { I } from "../icons.jsx";
 import { Btn, Card, Logo, PhoneInput, Anim, StepProgress } from "../components/ui.jsx";
+import { saveToken } from "../utils/reminderDates.js";
 import styles from "../styles/Verify.module.css";
 
 export function Verify({ go }) {
@@ -9,8 +10,55 @@ export function Verify({ go }) {
   const [cc, setCc] = useState("+1");
   const [channel, setChannel] = useState(null);
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [userId, setUserId] = useState(null);
   const refs = useRef([]);
   const handleOtp = (i, v) => { if (v.length > 1) return; const n = [...otp]; n[i] = v; setOtp(n); if (v && i < 5) refs.current[i + 1]?.focus(); };
+
+  // Send verification code
+  const sendVerification = async () => {
+    setLoading(true);
+    setError("");
+    try {
+      await fetch("/api/verify-phone", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phone: cc + phone })
+      });
+      setStep(3);
+    } catch (e) {
+      setError("Failed to send code");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Check verification code
+  const checkVerification = async () => {
+    setLoading(true);
+    setError("");
+    try {
+      const code = otp.join("");
+      const res = await fetch("/api/verify-phone-check", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phone: cc + phone, code })
+      });
+      const data = await res.json();
+      if (data.status === "approved" && data.token) {
+        setUserId(data.userId);
+        saveToken(data.token);
+        go("onboard");
+      } else {
+        setError("Invalid code");
+      }
+    } catch (e) {
+      setError("Verification failed");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className={styles.page}>
@@ -40,8 +88,9 @@ export function Verify({ go }) {
           </div>
           <div className={styles.row}>
             <Btn v="secondary" onClick={() => setStep(1)} className={styles.flex1}>Back</Btn>
-            <Btn onClick={() => setStep(3)} disabled={!channel} className={styles.flex2}>Send verification code</Btn>
+            <Btn onClick={sendVerification} disabled={!channel || loading} className={styles.flex2}>{loading ? "Sending..." : "Send verification code"}</Btn>
           </div>
+          {error && <div className={styles.error}>{error}</div>}
         </Anim>)}
 
         {step === 3 && (<Anim delay={0} type="slideR">
@@ -61,8 +110,9 @@ export function Verify({ go }) {
               />
             ))}
           </div>
-          <Btn full sz="lg" onClick={() => go("onboard")}>Verify & continue</Btn>
-          <p className={styles.footerResend}>Didn't get it? <span className={styles.link}>Resend code</span></p>
+          <Btn full sz="lg" onClick={checkVerification} disabled={otp.some(d => !d) || loading}>{loading ? "Verifying..." : "Verify & continue"}</Btn>
+          <p className={styles.footerResend}>Didn't get it? <span className={styles.link} onClick={sendVerification}>Resend code</span></p>
+          {error && <div className={styles.error}>{error}</div>}
         </Anim>)}
       </div>
     </div>
