@@ -89,7 +89,29 @@ export function Dashboard({ go }) {
           <div className={styles.addRow}>
             <div className={styles.addCol}><Inp label="Name" placeholder="Who?" value={nn} onChange={e => setNn(e.target.value)} className={styles.inpFlush} /></div>
             <div className={styles.addCol}><Inp label="Date" placeholder="When?" value={nd} onChange={e => setNd(e.target.value)} className={styles.inpFlush} /></div>
-            <Btn disabled={!nn || !nd} className={styles.addBtn}>Add</Btn>
+            <Btn disabled={!nn || !nd} className={styles.addBtn} onClick={async () => {
+              try {
+                await fetch("/api/addreminder", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${getToken()}`
+                  },
+                  body: JSON.stringify({ name: nn, birthday: nd })
+                });
+                setShowAdd(false);
+                setNn("");
+                setNd("");
+                // Refresh reminders
+                const res = await fetch("/api/reminders", {
+                  headers: { "Authorization": `Bearer ${getToken()}` }
+                });
+                const data = await res.json().catch(() => null);
+                if (Array.isArray(data)) setReminders(data);
+              } catch (e) {
+                // Optionally handle error
+              }
+            }}>Add</Btn>
             <button type="button" onClick={() => setShowAdd(false)} className={styles.iconBtn}>{I.x()}</button>
           </div>
         </Card></Anim>)}

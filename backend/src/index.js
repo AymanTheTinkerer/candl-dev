@@ -121,6 +121,135 @@ app.post("/verify-phone-check", async (req, res) => {
   }
 });
 
+app.post("/send-birthday-reminders", requireAuth, async (req, res) => {
+  try {
+    // Get all reminders for the user
+    const { data: reminders, error } = await supabase
+      .from("reminders")
+      .select("*")
+      .eq("user_id", req.user.userId);
+    if (error) return res.status(500).json({ error: error.message });
+
+    // Get user's phone number
+    const { data: user, error: userErr } = await supabase
+      .from("users")
+      .select("phone")
+      .eq("id", req.user.userId)
+      .single();
+    if (userErr) return res.status(500).json({ error: userErr.message });
+    const userPhone = user.phone;
+
+    // Filter reminders within notify_days_before
+    const today = new Date();
+    const upcoming = reminders.filter(r => {
+      if (!r.birthday || !r.notify_days_before) return false;
+      const bday = new Date(r.birthday);
+      bday.setFullYear(today.getFullYear());
+      if (bday < today) bday.setFullYear(today.getFullYear() + 1);
+      const diffDays = Math.round((bday - today) / 86400000);
+      return diffDays >= 0 && diffDays <= r.notify_days_before;
+    });
+
+    if (upcoming.length === 0) {
+      console.log("No reminders met the criteria. No message sent.");
+      return res.json({ message: "No upcoming birthdays within your notification window." });
+    }
+
+    // Compose message
+    const msg = `Upcoming birthdays: ${upcoming.map(r => `${r.name} in ${(() => {
+      const bday = new Date(r.birthday);
+      bday.setFullYear(today.getFullYear());
+      if (bday < today) bday.setFullYear(today.getFullYear() + 1);
+      return Math.round((bday - today) / 86400000);
+    })()} days`).join(", ")}`;
+
+    // Send SMS via Twilio
+    twilioClient.messages
+      .create({
+        body: msg,
+        from: "+18335273433",
+        to: userPhone
+      })
+      .then(message => {
+        console.log("Twilio message SID:", message.sid);
+        res.json({ message: "Message sent!" });
+      })
+      .catch(err => {
+        console.error("Twilio error:", err);
+        res.status(500).json({ error: "Failed to send SMS" });
+      });
+  } catch (e) {
+    res.status(500).json({ error: e instanceof Error ? e.message : "Unknown error" });
+  }
+});
+
+app.post("/send-birthday-reminders-whatsapp", requireAuth, async (req, res) => {
+  try {
+    // Get all reminders for the user
+    const { data: reminders, error } = await supabase
+      .from("reminders")
+      .select("*")
+      .eq("user_id", req.user.userId);
+    if (error) return res.status(500).json({ error: error.message });
+
+    // Get user's phone number
+    const { data: user, error: userErr } = await supabase
+      .from("users")
+      .select("phone")
+      .eq("id", req.user.userId)
+      .single();
+    if (userErr) return res.status(500).json({ error: userErr.message });
+    const userPhone = user.phone;
+
+    // Filter reminders within notify_days_before
+    const today = new Date();
+    const upcoming = reminders.filter(r => {
+      if (!r.birthday || !r.notify_days_before) return false;
+      const bday = new Date(r.birthday);
+      bday.setFullYear(today.getFullYear());
+      if (bday < today) bday.setFullYear(today.getFullYear() + 1);
+      const diffDays = Math.round((bday - today) / 86400000);
+      return diffDays >= 0 && diffDays <= r.notify_days_before;
+    });
+
+    if (upcoming.length === 0) {
+      console.log("No reminders met the criteria. No WhatsApp message sent.");
+      return res.json({ message: "No upcoming birthdays within your notification window." });
+    }
+
+    // Compose WhatsApp message (parameter2) with date
+    const msg = `Upcoming birthdays: ${upcoming.map(r => {
+      const bday = new Date(r.birthday);
+      bday.setFullYear(today.getFullYear());
+      if (bday < today) bday.setFullYear(today.getFullYear() + 1);
+      const dateStr = bday.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+      return `${r.name} on ${dateStr}`;
+    }).join(", ")}`;
+
+    // Send WhatsApp message via Twilio Content API
+    twilioClient.messages
+      .create({
+        from: 'whatsapp:+14155238886',
+        contentSid: 'HXb5b62575e6e4ff6129ad7c8efe1f983e',
+        contentVariables: JSON.stringify({
+          "1": "Anything you want", // parameter1
+          "2": msg // parameter2
+        }),
+        to: `whatsapp:${userPhone}`
+      })
+      .then(message => {
+        console.log("Twilio WhatsApp message SID:", message.sid);
+        res.json({ message: "WhatsApp message sent!" });
+      })
+      .catch(err => {
+        console.error("Twilio WhatsApp error:", err);
+        res.status(500).json({ error: "Failed to send WhatsApp message" });
+      });
+  } catch (e) {
+    res.status(500).json({ error: e instanceof Error ? e.message : "Unknown error" });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server listening on http://localhost:${port}`);
 });
